@@ -1,6 +1,4 @@
 import type { NextPage } from "next"
-import Head from "next/head"
-import Image from "next/image"
 import axios from "axios"
 import { Video } from "../type"
 import VideoCard from "../components/VideoCard"
