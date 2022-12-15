@@ -1,6 +1,5 @@
 import type { NextPage } from "next"
 import axios from "axios"
-import Link from "next/link"
 import { Video } from "../type"
 import VideoCard from "../components/VideoCard"
 import NoResults from "../components/NoResults"
