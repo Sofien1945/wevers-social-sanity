@@ -3,7 +3,7 @@ import { useRouter } from "next/router"
 import { GoVerified } from "react-icons/go"
 import Image from "next/image"
 import Link from "next/link"
-import { MdOutlineCancel } from "react-icons/md"
+import { MdArrowBackIosNew } from "react-icons/md"
 import { BsFillPlayFill, BsFillPauseFill } from "react-icons/bs"
 import { HiVolumeUp, HiVolumeOff } from "react-icons/hi"
 
@@ -75,11 +75,11 @@ const PostDetail = ({ postDetails }: IProps) => {
 
   return (
     <>
-      <div className="flex w-full bg-white flex-wrap lg:flex-nowrap">
-        <div className="relative flex-2 w-[1000px] lg:w-9/12 flex justify-center items-center bg-blurred-img bg-no-repeat bg-cover bg-center">
+      <div className="flex w-full bg-white flex-wrap lg:flex-nowrap just">
+        <div className="relative flex-2 w-[1000px] lg:w-9/12 flex justify-center items-center bg-black/90 bg-no-repeat bg-cover bg-center">
           <div className="opacity-90 absolute top-6 left-2 lg:left-6 flex gap-6 z-50">
             <p className="cursor-pointer " onClick={() => router.back()}>
-              <MdOutlineCancel className="text-white text-[35px] hover:opacity-90" />
+              <MdArrowBackIosNew className="text-slate-900 text-[35px] hover:opacity-90 bg-white rounded" />
             </p>
           </div>
           <div className="relative">

@@ -16,10 +16,10 @@ const Sidebar: NextPage = () => {
   const [userProfile, setUserProfile] = useState(false)
   const { fetchAllUsers, allUsers } = useAuthStore()
   const activeLink =
-    "flex items-center gap-3 hover:bg-primary p-3 justify-center xl:justify-start cursor-pointer font-semibold text-[#F51997] rounded"
+    "flex items-center gap-3 hover:bg-primary p-3 justify-center xl:justify-start cursor-pointer font-semibold text-amber-500 rounded-full bg-gray-300"
 
   const normalLink =
-    "flex items-center gap-3 hover:bg-primary p-3 justify-center xl:justify-start cursor-pointer font-semibold rounded"
+    "flex items-center gap-3 bg-none hover:bg-primary p-3 justify-center xl:justify-start cursor-pointer font-semibold rounded"
   return (
     <div className="h-full overflow-scroll">
       <div
@@ -36,8 +36,13 @@ const Sidebar: NextPage = () => {
                 <p className="text-2xl">
                   <AiFillHome />
                 </p>
-                <span className="capitalize text-xl hidden xl:block">
-                  For You
+                <span
+                  className={`capitalize text-2xl hidden xl:block ${
+                    pathname === "/" &&
+                    "text-transparent bg-clip-text bg-gradient-to-r from-amber-400 to-purple-600"
+                  }`}
+                >
+                  Welcome
                 </span>
               </div>
             </Link>

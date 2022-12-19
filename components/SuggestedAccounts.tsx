@@ -17,7 +17,7 @@ const SuggestedAccounts: NextPage<IProps> = ({ fetchAllUsers, allUsers }) => {
   }, [fetchAllUsers])
 
   const users = allUsers.sort(() => Math.random()).slice(0, allUsers.length)
-  console.log(users)
+  //console.log(users)
 
   return (
     <div className="xl:border-b-2 border-gray-200 pb-4">

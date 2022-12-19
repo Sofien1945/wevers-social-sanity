@@ -4,10 +4,13 @@ import { useState, useEffect } from "react"
 import Navbar from "../components/Navbar"
 import Sidebar from "../components/Sidebar"
 import { GoogleOAuthProvider } from "@react-oauth/google"
+import { useRouter } from "next/router"
+import LiveChat from "../components/LiveChat"
 
 const MyApp = ({ Component, pageProps }: AppProps) => {
   const [isSSR, setIsSSR] = useState(true)
   const CLIENT_ID = process.env.NEXT_PUBLIC_GOOGLE_API_TOKEN
+  const router = useRouter()
 
   useEffect(() => {
     setIsSSR(false)
@@ -19,12 +22,13 @@ const MyApp = ({ Component, pageProps }: AppProps) => {
         <Navbar />
         <div className="flex gap-6 md:gap-20">
           <div className="h-[92vh] overflow-hidden xl:hover:overflow-auto">
-            <Sidebar />
+            {!router.query.id && <Sidebar />}
           </div>
           <div className="mt-4 flex flex-col gap-10 overflow-auto h-[88vh] video flex-1">
             <Component {...pageProps} />
           </div>
         </div>
+        <LiveChat />
       </div>
     </GoogleOAuthProvider>
   )
