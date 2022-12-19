@@ -1,4 +1,4 @@
-import React, { useState } from "react"
+import React, { useRef, useState } from "react"
 import { RiChatSmile3Line } from "react-icons/ri"
 import { BiMailSend } from "react-icons/bi"
 import useAuthStore from "../store/authStore"
@@ -11,6 +11,7 @@ const LiveChat = () => {
   const [chatId, setChatId] = useState("")
   const [msg, setMsg] = useState([])
   const [sendText, setSendText] = useState("")
+  const scroll = useRef()
 
   const handleSubmitt = async () => {
     const { data } = await fetchAllChats()
@@ -40,8 +41,10 @@ const LiveChat = () => {
       message: sendText,
     }
     const { data } = await updateChat(doc)
+    scroll?.current?.scrollIntoView({ behavior: "smooth" })
+    setSendText("")
     setMsg(data.messages)
-    console.log(msg)
+    //console.log(msg)
   }
   return (
     <>
@@ -84,14 +87,22 @@ const LiveChat = () => {
         <div
           className={`flex flex-col justify-between fixed w-[300px] h-[300px] bottom-[75px] md:top-[250px] right-[30px] md:right-24 bg-gray-300 z-10 shadow-secondary p-2 ${
             !showChat ? "-translate-y-[100vh]" : "translate-y-0 rounded"
-          } transition-all duration-700`}
+          } transition-all duration-700 shadow-xl shadow-black border border-amber-500`}
         >
-          <div className="h-[70vh] rounded border border-amber-500 p-2 overflow-y-scroll scroll-smooth ">
+          <div className="h-[70vh] p-2 overflow-auto">
             {msg?.map((chat, index) => (
-              <p key={index}>{chat}</p>
+              <div
+                key={index}
+                className="my-2 py-1 px-2 bg-white rounded-br-xl rounded-tr-xl  text-black w-fit"
+              >
+                <span ref={scroll}> </span>
+                <p>{chat}</p>
+                <span ref={scroll}> </span>
+              </div>
             ))}
+            <br />
           </div>
-          <div className="flex w-[47vh] h-[10vh] mt-2 rounded-md items-center ">
+          <div className="flex lg:w-[47vh] lg:h-[10vh] mt-2 rounded-md items-center ">
             <input
               type="text"
               className="w-[40vh] mr-2 rounded border border-amber-500 px-2"
