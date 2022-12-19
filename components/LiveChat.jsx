@@ -27,10 +27,8 @@ const LiveChat = () => {
 
       {newChat ? (
         <div
-          className={`fixed w-[300px] h-[300px] bottom-[75px] md:top-[250px] right-[30px] md:right-24 bg-gray-300 z-10 shadow-secondary p-4 ${
-            !showChat
-              ? "-translate-y-[100vh]"
-              : "translate-y-0 rounded text-center"
+          className={`fixed w-[300px] h-[300px] bottom-[75px] md:top-[250px] right-[30px] md:right-24 bg-gray-300 z-10 shadow-secondary p-4 text-center ${
+            !showChat ? "-translate-y-[100vh]" : "translate-y-0 rounded "
           } transition-all duration-700`}
         >
           <h1 className="font-extrabold text-transparent text-xl bg-clip-text bg-gradient-to-r from-purple-400 to-pink-600">
@@ -58,9 +56,7 @@ const LiveChat = () => {
       ) : (
         <div
           className={`fixed w-[300px] h-[300px] bottom-[75px] md:top-[250px] right-[30px] md:right-24 bg-gray-300 z-10 shadow-secondary p-4 ${
-            !showChat
-              ? "-translate-y-[100vh]"
-              : "translate-y-0 rounded text-center"
+            !showChat ? "-translate-y-[100vh]" : "translate-y-0 rounded"
           } transition-all duration-700`}
         >
           empty
