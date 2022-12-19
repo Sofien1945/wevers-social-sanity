@@ -27,7 +27,7 @@ const LiveChat = () => {
 
       {newChat ? (
         <div
-          className={`absolute w-[300px] h-[300px] top-[500px] md:top-[250px] right-16 md:right-24 bg-gray-300 z-10 shadow-secondary p-4 ${
+          className={`fixed w-[300px] h-[300px] bottom-[75px] md:top-[250px] right-[30px] md:right-24 bg-gray-300 z-10 shadow-secondary p-4 ${
             !showChat
               ? "-translate-y-[100vh]"
               : "translate-y-0 rounded text-center"
