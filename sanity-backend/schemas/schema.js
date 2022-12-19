@@ -21,5 +21,6 @@ export default createSchema({
     user,
     comment,
     postedBy,
+    chat,
   ]),
 })

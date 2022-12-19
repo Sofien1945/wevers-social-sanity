@@ -17,9 +17,19 @@ const authStore = (set: any) => ({
     set({ allUsers: response.data })
   },
 
-  sendEmail: async (mail: string) => {
-    const response = await axios.post(`${BASE_URL}/api/chat`, { email: mail })
+  createChatRoom: async (doc: any) => {
+    const response = await axios.post(`${BASE_URL}/api/chat`, doc)
     console.log(response)
+  },
+
+  fetchAllChats: async () => {
+    const response = await axios.get(`${BASE_URL}/api/chat`)
+    return response
+  },
+
+  updateChat: async (doc: any) => {
+    const response = await axios.put(`${BASE_URL}/api/chat`, doc)
+    return response
   },
 })
 

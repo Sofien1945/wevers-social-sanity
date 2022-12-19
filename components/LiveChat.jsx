@@ -1,20 +1,47 @@
-import axios from "axios"
 import React, { useState } from "react"
 import { RiChatSmile3Line } from "react-icons/ri"
-import { BASE_URL } from "../utils"
+import { BiMailSend } from "react-icons/bi"
 import useAuthStore from "../store/authStore"
 
 const LiveChat = () => {
-  const { email, setEmail, sendEmail } = useAuthStore()
+  const { email, setEmail, createChatRoom, fetchAllChats, updateChat } =
+    useAuthStore()
   const [showChat, setShowChat] = useState(false)
   const [newChat, setNewChat] = useState(true)
+  const [chatId, setChatId] = useState("")
+  const [msg, setMsg] = useState([])
+  const [sendText, setSendText] = useState("")
 
   const handleSubmitt = async () => {
-    setNewChat(false)
-    sendEmail(email)
-    // const res = await axios.put(`${BASE_URL}/api/chat`, {
-    //   email: email,
-    // })
+    const { data } = await fetchAllChats()
+    const exist = await data.filter((chat) => {
+      return chat.email == email
+    })
+    if (exist.length > 0) {
+      setNewChat(false)
+      setChatId(exist[0]._id)
+      setMsg(exist[0].messages)
+      //console.log(chatId)
+    } else {
+      const doc = {
+        _type: "chat",
+        email,
+        messages: [],
+      }
+      createChatRoom(doc)
+    }
+  }
+  const handleChat = async (e) => {
+    e.preventDefault()
+    const doc = {
+      //_type: "chat",
+      _id: chatId,
+      email,
+      message: sendText,
+    }
+    const { data } = await updateChat(doc)
+    setMsg(data.messages)
+    console.log(msg)
   }
   return (
     <>
@@ -55,11 +82,28 @@ const LiveChat = () => {
         </div>
       ) : (
         <div
-          className={`fixed w-[300px] h-[300px] bottom-[75px] md:top-[250px] right-[30px] md:right-24 bg-gray-300 z-10 shadow-secondary p-4 ${
+          className={`flex flex-col justify-between fixed w-[300px] h-[300px] bottom-[75px] md:top-[250px] right-[30px] md:right-24 bg-gray-300 z-10 shadow-secondary p-2 ${
             !showChat ? "-translate-y-[100vh]" : "translate-y-0 rounded"
           } transition-all duration-700`}
         >
-          empty
+          <div className="h-[70vh] rounded border border-amber-500 p-2 overflow-y-scroll scroll-smooth ">
+            {msg?.map((chat, index) => (
+              <p key={index}>{chat}</p>
+            ))}
+          </div>
+          <div className="flex w-[47vh] h-[10vh] mt-2 rounded-md items-center ">
+            <input
+              type="text"
+              className="w-[40vh] mr-2 rounded border border-amber-500 px-2"
+              value={sendText}
+              onChange={(e) => setSendText(e.target.value)}
+            />
+            <BiMailSend
+              size={25}
+              className="hover:bg-gray-500 rounded"
+              onClick={handleChat}
+            />
+          </div>
         </div>
       )}
     </>
